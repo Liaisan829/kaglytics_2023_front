@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputComponent } from '@components/forms/input/input.component';
 import { IconComponent } from '@components/ui/icon/icon.component';
+import { HomeComponent } from "@pages/home/home.component";
+import { AuthComponent } from '@pages/auth/auth.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		InputComponent,
-		IconComponent
+		IconComponent,
+		HomeComponent,
+		AuthComponent
 	],
 	imports: [
 		BrowserModule,
