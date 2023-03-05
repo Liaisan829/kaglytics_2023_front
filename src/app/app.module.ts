@@ -7,8 +7,10 @@ import { InputComponent } from '@components/forms/input/input.component';
 import { IconComponent } from '@components/ui/icon/icon.component';
 import { HomeComponent } from "@pages/home/home.component";
 import { AuthComponent } from '@pages/auth/auth.component';
-import { SignUpFormComponent } from './pages/auth/forms/sign-up-form/sign-up-form.component';
+import { SignUpFormComponent } from '@pages/auth/forms/sign-up-form/sign-up-form.component';
 import { ReactiveFormsModule } from "@angular/forms";
+import { SwiperComponent } from '@components/ui/swiper/swiper.component';
+import { SwiperModule } from "swiper/angular";
 
 @NgModule({
 	declarations: [
@@ -17,12 +19,14 @@ import { ReactiveFormsModule } from "@angular/forms";
 		IconComponent,
 		HomeComponent,
 		AuthComponent,
-  SignUpFormComponent
+		SignUpFormComponent,
+		SwiperComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		SwiperModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
