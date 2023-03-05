@@ -1,0 +1,13 @@
+<div class='wrapper'>
+	<div class='logo'>
+		<span>Kaglytics</span>
+	</div>
+
+	<ng-container [ngSwitch]='pageForm'>
+		<ng-container *ngSwitchCase="'sign-up'">
+			<app-sign-up-form></app-sign-up-form>
+		</ng-container>
+	</ng-container>
+</div>
+
+<app-swiper class='slider'></app-swiper>

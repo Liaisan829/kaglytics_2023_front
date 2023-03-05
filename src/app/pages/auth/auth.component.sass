@@ -1,0 +1,36 @@
+@import 'mixins'
+
+\:host
+	display: flex
+	background: white
+	align-items: center
+	justify-content: space-between
+
+.wrapper
+	flex: 1 0 auto
+	background: white
+	width: 50%
+	height: 100vh
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+
+.logo
+	display: flex
+	align-items: center
+	margin-bottom: 50px
+
+	span
+		font-size: 100px
+		line-height: 140px
+		background: rgb(32,190,255)
+		background: linear-gradient(to right, #20BEFF 17%, #AC68D3 100%)
+		-webkit-background-clip: text
+		-webkit-text-fill-color: transparent
+
+.slider
+	flex: 1 0 auto
+	width: 50%
+	height: 100vh
+	background: $c-background-base
