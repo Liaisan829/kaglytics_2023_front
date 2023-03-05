@@ -1,0 +1,15 @@
+<input [type]="this.password ? (show ? 'text' : 'password') : type"
+	   [placeholder]='placeholder'
+	   (input)="onChange($event)"
+>
+
+<ng-container *ngIf='password'>
+	<button class="btn" (click)="toggle()">
+		<ng-container *ngIf='show; else hide'>
+			<app-icon name='eye-off'></app-icon>
+		</ng-container>
+		<ng-template #hide>
+			<app-icon name='eye'></app-icon>
+		</ng-template>
+	</button>
+</ng-container>
