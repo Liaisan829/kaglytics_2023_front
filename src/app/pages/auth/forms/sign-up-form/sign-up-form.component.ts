@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DestroyService } from "@services/destroy.service";
+import { AuthService } from "@services/auth.service";
+import { takeUntil } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -12,6 +16,9 @@ export class SignUpFormComponent {
 
 	constructor(
 		private fb: FormBuilder,
+		private destroy$: DestroyService,
+		private authService: AuthService,
+		private router: Router
 	) {
 		this.buildForm();
 	}
@@ -29,5 +36,15 @@ export class SignUpFormComponent {
 	}
 
 	submit() {
+		this.authService.signUp(this.form.value)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe({
+				next: () => {
+					this.router.navigate(['sign-in'])
+				},
+				error: (err) => {
+
+				}
+			});
 	}
 }

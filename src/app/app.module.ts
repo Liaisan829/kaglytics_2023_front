@@ -11,6 +11,8 @@ import { SignUpFormComponent } from '@pages/auth/forms/sign-up-form/sign-up-form
 import { ReactiveFormsModule } from "@angular/forms";
 import { SwiperComponent } from '@components/ui/swiper/swiper.component';
 import { SwiperModule } from "swiper/angular";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { UrlInterceptorService } from "@services/url-interceptor.service";
 
 @NgModule({
 	declarations: [
@@ -26,9 +28,16 @@ import { SwiperModule } from "swiper/angular";
 		BrowserModule,
 		AppRoutingModule,
 		ReactiveFormsModule,
-		SwiperModule
+		SwiperModule,
+		HttpClientModule
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: UrlInterceptorService,
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
