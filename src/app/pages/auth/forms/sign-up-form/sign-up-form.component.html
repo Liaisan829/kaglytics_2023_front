@@ -1,0 +1,11 @@
+<form [formGroup]='form'>
+	<app-input placeholder='Username' formControlName='username'></app-input>
+	<app-input type="email" placeholder='Email' formControlName='email'></app-input>
+	<app-input placeholder='Password' [password]='true' formControlName='password'></app-input>
+
+	<button class='btn' (click)='submit()' [disabled]='formIsValid'>Sign up</button>
+
+	<div class="text">
+		<span>Have an account? <a routerLink='/sign-in'>Sign in</a></span>
+	</div>
+</form>

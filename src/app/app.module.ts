@@ -7,6 +7,8 @@ import { InputComponent } from '@components/forms/input/input.component';
 import { IconComponent } from '@components/ui/icon/icon.component';
 import { HomeComponent } from "@pages/home/home.component";
 import { AuthComponent } from '@pages/auth/auth.component';
+import { SignUpFormComponent } from './pages/auth/forms/sign-up-form/sign-up-form.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
 	declarations: [
@@ -14,11 +16,13 @@ import { AuthComponent } from '@pages/auth/auth.component';
 		InputComponent,
 		IconComponent,
 		HomeComponent,
-		AuthComponent
+		AuthComponent,
+  SignUpFormComponent
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule
+		AppRoutingModule,
+		ReactiveFormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
