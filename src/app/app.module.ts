@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { UrlInterceptorService } from "@services/url-interceptor.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { ToastrModule } from "ngx-toastr";
 		HomeComponent,
 		AuthComponent,
 		SignUpFormComponent,
-		SwiperComponent
+		SwiperComponent,
+		SignInFormComponent
 	],
 	imports: [
 		BrowserModule,
