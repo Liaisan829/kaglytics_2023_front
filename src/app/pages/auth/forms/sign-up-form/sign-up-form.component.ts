@@ -5,6 +5,7 @@ import { AuthService } from "@services/auth.service";
 import { takeUntil } from "rxjs";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
+import { EmailValidators, PasswordValidators } from "@utils/validations";
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -28,8 +29,8 @@ export class SignUpFormComponent {
 	private buildForm() {
 		this.form = this.fb.group({
 			username: ['', [Validators.required]],
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required]]
+			email: ['', [...EmailValidators]],
+			password: ['', [...PasswordValidators]]
 		});
 	}
 
@@ -58,5 +59,9 @@ export class SignUpFormComponent {
 					}
 				}
 			});
+	}
+
+	hasError(formControlName: string, errorName: string) {
+		return (this.form.get(formControlName)?.touched || this.form.get(formControlName)?.dirty) && this.form.get(formControlName)?.hasError(errorName);
 	}
 }
