@@ -13,6 +13,8 @@ import { SwiperComponent } from '@components/ui/swiper/swiper.component';
 import { SwiperModule } from "swiper/angular";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { UrlInterceptorService } from "@services/url-interceptor.service";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
 	declarations: [
@@ -29,7 +31,12 @@ import { UrlInterceptorService } from "@services/url-interceptor.service";
 		AppRoutingModule,
 		ReactiveFormsModule,
 		SwiperModule,
-		HttpClientModule
+		HttpClientModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot({
+			timeOut: 3000,
+			closeButton: true,
+		})
 	],
 	providers: [
 		{
