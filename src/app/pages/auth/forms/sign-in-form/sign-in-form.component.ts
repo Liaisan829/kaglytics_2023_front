@@ -4,6 +4,7 @@ import { AuthService } from "@services/auth.service";
 import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
 import { Router } from "@angular/router";
+import { ToastService } from "@services/toast.service";
 
 @Component({
 	selector: 'app-sign-in-form',
@@ -19,6 +20,7 @@ export class SignInFormComponent {
 		private authService: AuthService,
 		private destroy$: DestroyService,
 		private router: Router,
+		private toast: ToastService
 	) {
 		this.buildForm();
 	}
@@ -26,7 +28,7 @@ export class SignInFormComponent {
 	private buildForm() {
 		this.form = this.fb.group({
 			username: ['', [Validators.required]],
-			password: ['', [Validators.required, Validators.minLength(5)]]
+			password: ['', [Validators.required]]
 		});
 	}
 
@@ -43,7 +45,15 @@ export class SignInFormComponent {
 
 					this.router.navigate(['/'])
 				},
-				error: () => {
+				error: (err) => {
+					switch (err.status) {
+						case 400:
+							this.toast.error('Invalid username or password');
+							break;
+						default :
+							this.toast.error(err);
+							break;
+					}
 				}
 			});
 	}
