@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { LocalStorage } from "@utils/local-storage";
+import { SignUpRequest } from "@models/SignUpRequest";
+import { SignUpResponse } from "@models/SignUpResponse";
+import { TokenResponse } from "@models/TokenResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +17,16 @@ export class AuthService {
 	) {
 	}
 
-	signUp(data: any): Observable<any> {
-		//модельки добавить
-		return this.http.post('sign-up', data);
+	signUp(data: SignUpRequest): Observable<SignUpResponse> {
+		return this.http.post<SignUpResponse>('sign-up', data);
 	}
 
-	signIn(data: any): Observable<any> {
-		return this.http.post('sign-in', data);
+	signIn(data: SignUpRequest): Observable<TokenResponse> {
+		return this.http.post<TokenResponse>('sign-in', data);
 	}
 
-	authorize(token: string): void {
-		this.token = token;
+	authorize(token: TokenResponse): void {
+		this.token = token.token;
 	}
 
 	get isAuthorized(): boolean{
