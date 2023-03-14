@@ -1,7 +1,31 @@
 <form [formGroup]='form'>
 	<app-input placeholder='Username' formControlName='username'></app-input>
+	<ng-container *ngIf="hasError('username', 'required')">
+		<span class='error'>Username is required</span>
+	</ng-container>
+
 	<app-input type="email" placeholder='Email' formControlName='email'></app-input>
+	<ng-container *ngIf="hasError('email', 'required')">
+		<span class='error'>Email is required</span>
+	</ng-container>
+	<ng-container
+		*ngIf="hasError('email', 'email') || hasError('email', 'pattern')">
+		<span class='error'>Invalid email pattern</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('email', 'maxlength')">
+		<span class='error'>Email must not exceed 254 characters</span>
+	</ng-container>
+
 	<app-input placeholder='Password' [password]='true' formControlName='password'></app-input>
+	<ng-container *ngIf="hasError('password', 'required')">
+		<span class='error'>Password is required</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('password', 'minlength')">
+		<span class='error'>Minimum password length 5 characters</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('password', 'pattern')">
+		<span class='error'>Password may only contain latin characters and numbers</span>
+	</ng-container>
 
 	<button class='btn' (click)='submit()' [disabled]='formIsValid'>Sign up</button>
 

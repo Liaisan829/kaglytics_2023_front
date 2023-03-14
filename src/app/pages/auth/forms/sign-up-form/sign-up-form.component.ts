@@ -4,6 +4,8 @@ import { DestroyService } from "@services/destroy.service";
 import { AuthService } from "@services/auth.service";
 import { takeUntil } from "rxjs";
 import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { EmailValidators, PasswordValidators } from "@utils/validations";
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -18,7 +20,8 @@ export class SignUpFormComponent {
 		private fb: FormBuilder,
 		private destroy$: DestroyService,
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private toast: ToastrService
 	) {
 		this.buildForm();
 	}
@@ -26,8 +29,8 @@ export class SignUpFormComponent {
 	private buildForm() {
 		this.form = this.fb.group({
 			username: ['', [Validators.required]],
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required]]
+			email: ['', [...EmailValidators]],
+			password: ['', [...PasswordValidators]]
 		});
 	}
 
@@ -40,11 +43,25 @@ export class SignUpFormComponent {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
-					this.router.navigate(['sign-in'])
+					this.toast.success('Вы успешно зарегистрированы!');
+					this.router.navigate(['sign-in']);
 				},
 				error: (err) => {
-
+					switch (err.status) {
+						case 400:
+							if (!!err.error.pasword) this.toast.error(err.error.password);
+							if (!!err.error.email) this.toast.error(err.error.email);
+							if (!!err.error.username) this.toast.error(err.error.username);
+							break;
+						default:
+							this.toast.error(err);
+							break;
+					}
 				}
 			});
+	}
+
+	hasError(formControlName: string, errorName: string) {
+		return (this.form.get(formControlName)?.touched || this.form.get(formControlName)?.dirty) && this.form.get(formControlName)?.hasError(errorName);
 	}
 }
