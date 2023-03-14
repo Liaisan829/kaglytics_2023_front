@@ -15,6 +15,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { UrlInterceptorService } from "@services/url-interceptor.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
+import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form.component';
+import { AuthInterceptorService } from "@services/auth-interceptor.service";
+import { LoaderComponent } from './components/ui/loader/loader.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +27,9 @@ import { ToastrModule } from "ngx-toastr";
 		HomeComponent,
 		AuthComponent,
 		SignUpFormComponent,
-		SwiperComponent
+		SwiperComponent,
+		SignInFormComponent,
+  LoaderComponent
 	],
 	imports: [
 		BrowserModule,
@@ -43,7 +48,12 @@ import { ToastrModule } from "ngx-toastr";
 			provide: HTTP_INTERCEPTORS,
 			useClass: UrlInterceptorService,
 			multi: true
-		}
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptorService,
+			multi: true
+		},
 	],
 	bootstrap: [AppComponent]
 })

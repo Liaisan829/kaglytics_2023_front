@@ -20,6 +20,11 @@ const routes: Routes = [
 		path: 'sign-up',
 		component: AuthComponent,
 		data: {form: 'sign-up'}
+	},
+	{
+		path: 'sign-in',
+		component: AuthComponent,
+		data: {form: 'sign-in'}
 	}
 ];
 

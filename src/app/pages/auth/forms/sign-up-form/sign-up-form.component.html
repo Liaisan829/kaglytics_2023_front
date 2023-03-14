@@ -27,9 +27,23 @@
 		<span class='error'>Password may only contain latin characters and numbers</span>
 	</ng-container>
 
-	<button class='btn' (click)='submit()' [disabled]='formIsValid'>Sign up</button>
+	<div class='btn__group'>
+		<button
+			class='btn'
+			(click)='submit()'
+			[disabled]='formIsValid'
+			*ngIf='!(loading$ | async)'
+		>Sign up</button>
+		<ng-container *ngIf='loading$ | async'>
+			<ng-container *ngTemplateOutlet='loader'></ng-container>
+		</ng-container>
+	</div>
 
 	<div class="text">
 		<span>Have an account? <a routerLink='/sign-in'>Sign in</a></span>
 	</div>
 </form>
+
+<ng-template #loader>
+	<app-loader width='FULL'></app-loader>
+</ng-template>
