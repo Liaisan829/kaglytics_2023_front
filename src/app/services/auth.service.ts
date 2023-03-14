@@ -15,6 +15,7 @@ export class AuthService {
 	}
 
 	signUp(data: any): Observable<any> {
+		//модельки добавить
 		return this.http.post('sign-up', data);
 	}
 

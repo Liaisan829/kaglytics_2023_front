@@ -10,14 +10,16 @@
 	background: $c-background-base
 	border-radius: 8px
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.25)
-	margin-bottom: 32px
 	padding: 20px 0
 	@include text-20
 	color: $c-base-80
 	width: 100%
 
-.btn:disabled
-	color: $c-base-40
+	&__group
+		margin-bottom: 32px
+
+	&:disabled
+		color: $c-base-40
 
 .text
 	text-align: center

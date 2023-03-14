@@ -5,6 +5,7 @@ import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
 import { Router } from "@angular/router";
 import { ToastService } from "@services/toast.service";
+import { LoadingService } from "@services/loading.service";
 
 @Component({
 	selector: 'app-sign-in-form',
@@ -20,7 +21,8 @@ export class SignInFormComponent {
 		private authService: AuthService,
 		private destroy$: DestroyService,
 		private router: Router,
-		private toast: ToastService
+		private toast: ToastService,
+		public loading$: LoadingService
 	) {
 		this.buildForm();
 	}
@@ -37,12 +39,13 @@ export class SignInFormComponent {
 	}
 
 	submit() {
+		this.loading$.next(true);
 		this.authService.signIn(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: res => {
 					this.authService.authorize(res);
-
+					this.loading$.next(false);
 					this.router.navigate(['/'])
 				},
 				error: (err) => {
@@ -54,6 +57,7 @@ export class SignInFormComponent {
 							this.toast.error(err);
 							break;
 					}
+					this.loading$.next(false);
 				}
 			});
 	}

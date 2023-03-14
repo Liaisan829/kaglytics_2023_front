@@ -6,6 +6,7 @@ import { takeUntil } from "rxjs";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { EmailValidators, PasswordValidators } from "@utils/validations";
+import { LoadingService } from "@services/loading.service";
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -21,7 +22,8 @@ export class SignUpFormComponent {
 		private destroy$: DestroyService,
 		private authService: AuthService,
 		private router: Router,
-		private toast: ToastrService
+		private toast: ToastrService,
+		public loading$: LoadingService
 	) {
 		this.buildForm();
 	}
@@ -39,11 +41,13 @@ export class SignUpFormComponent {
 	}
 
 	submit() {
+		this.loading$.next(true);
 		this.authService.signUp(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
 					this.toast.success('Вы успешно зарегистрированы!');
+					this.loading$.next(false);
 					this.router.navigate(['sign-in']);
 				},
 				error: (err) => {
@@ -57,6 +61,7 @@ export class SignUpFormComponent {
 							this.toast.error(err);
 							break;
 					}
+					this.loading$.next(false);
 				}
 			});
 	}
