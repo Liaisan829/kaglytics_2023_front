@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "@services/auth.service";
+import { takeUntil } from "rxjs";
+import { DestroyService } from "@services/destroy.service";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-sign-in-form',
@@ -13,15 +16,17 @@ export class SignInFormComponent {
 
 	constructor(
 		private fb: FormBuilder,
-		private authService: AuthService
+		private authService: AuthService,
+		private destroy$: DestroyService,
+		private router: Router,
 	) {
 		this.buildForm();
 	}
 
 	private buildForm() {
 		this.form = this.fb.group({
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required]]
+			username: ['', [Validators.required]],
+			password: ['', [Validators.required, Validators.minLength(5)]]
 		});
 	}
 
@@ -30,6 +35,16 @@ export class SignInFormComponent {
 	}
 
 	submit() {
-		// console.log('dsd')
+		this.authService.signIn(this.form.value)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe({
+				next: res => {
+					this.authService.authorize(res);
+
+					this.router.navigate(['/'])
+				},
+				error: () => {
+				}
+			});
 	}
 }

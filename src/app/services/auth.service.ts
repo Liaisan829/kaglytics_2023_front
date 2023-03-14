@@ -8,7 +8,6 @@ import { LocalStorage } from "@utils/local-storage";
 })
 export class AuthService {
 	@LocalStorage() token?: string | null;
-	@LocalStorage() user?: any;
 
 	constructor(
 		private http: HttpClient
@@ -17,5 +16,17 @@ export class AuthService {
 
 	signUp(data: any): Observable<any> {
 		return this.http.post('sign-up', data);
+	}
+
+	signIn(data: any): Observable<any> {
+		return this.http.post('sign-in', data);
+	}
+
+	authorize(token: string): void {
+		this.token = token;
+	}
+
+	get isAuthorized(): boolean{
+		return this.token !== null;
 	}
 }

@@ -16,6 +16,7 @@ import { UrlInterceptorService } from "@services/url-interceptor.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form.component';
+import { AuthInterceptorService } from "@services/auth-interceptor.service";
 
 @NgModule({
 	declarations: [
@@ -45,7 +46,12 @@ import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form
 			provide: HTTP_INTERCEPTORS,
 			useClass: UrlInterceptorService,
 			multi: true
-		}
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptorService,
+			multi: true
+		},
 	],
 	bootstrap: [AppComponent]
 })
