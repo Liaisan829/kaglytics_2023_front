@@ -5,6 +5,7 @@ import { LocalStorage } from "@utils/local-storage";
 import { SignUpRequest } from "@models/SignUpRequest";
 import { SignUpResponse } from "@models/SignUpResponse";
 import { TokenResponse } from "@models/TokenResponse";
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,9 @@ export class AuthService {
 	authorize(token: string, refreshToken?: string): void {
 		this.token = token;
 		this.refresh_token = refreshToken;
+
+		this.user = jwtDecode(token);
+		this.expires_in = this.user.exp;
 	}
 
 	get isAuthorized(): boolean{
