@@ -6,7 +6,7 @@ const getError = (error: HttpErrorResponse | string): string => {
 	if (typeof error === 'string') {
 		return error;
 	}
-	return 'Произошла ошибка';
+	return 'An error has occurred';
 };
 
 @Injectable({
