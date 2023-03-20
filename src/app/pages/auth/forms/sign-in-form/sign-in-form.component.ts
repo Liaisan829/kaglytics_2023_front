@@ -29,7 +29,7 @@ export class SignInFormComponent {
 
 	private buildForm() {
 		this.form = this.fb.group({
-			username: ['', [Validators.required]],
+			email: ['', [Validators.required]],
 			password: ['', [Validators.required]]
 		});
 	}
@@ -43,15 +43,15 @@ export class SignInFormComponent {
 		this.authService.signIn(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
-				next: ({accessToken, refreshToken}) => {
-					this.authService.authorize(accessToken);
+				next: ({access, refresh}) => {
+					this.authService.authorize(access, refresh);
 					this.loading$.next(false);
 					this.router.navigate(['/'])
 				},
 				error: (err) => {
 					switch (err.status) {
-						case 400:
-							this.toast.error('Invalid username or password');
+						case 401:
+							this.toast.error('Invalid email or password');
 							break;
 						default :
 							this.toast.error(err);

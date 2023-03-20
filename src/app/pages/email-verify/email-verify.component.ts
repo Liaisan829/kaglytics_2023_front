@@ -27,9 +27,9 @@ export class EmailVerifyComponent {
 				this.authService.emailVerify(token)
 					.pipe(takeUntil(this.destroy$))
 					.subscribe({
-						next: ({accessToken, refreshToken}) => {
-							if (accessToken) {
-								this.authService.authorize(accessToken, refreshToken);
+						next: ({access, refresh}) => {
+							if (access) {
+								this.authService.authorize(access, refresh);
 								this.router.navigate(['/']);
 								this.toast.success('Registration completed successfully');
 							}
