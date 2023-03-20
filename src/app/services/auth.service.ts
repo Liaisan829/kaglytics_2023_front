@@ -11,6 +11,9 @@ import { TokenResponse } from "@models/TokenResponse";
 })
 export class AuthService {
 	@LocalStorage() token?: string | null;
+	@LocalStorage() refresh_token?: string | null;
+	@LocalStorage() expires_in?: string | null;
+	@LocalStorage() user?: any | null;
 
 	constructor(
 		private http: HttpClient
@@ -25,11 +28,16 @@ export class AuthService {
 		return this.http.post<TokenResponse>('sign-in', data);
 	}
 
-	authorize(token: TokenResponse): void {
-		this.token = token.token;
+	authorize(token: string, refreshToken?: string): void {
+		this.token = token;
+		this.refresh_token = refreshToken;
 	}
 
 	get isAuthorized(): boolean{
 		return this.token !== null;
+	}
+
+	emailVerify(token: string): Observable<TokenResponse> {
+		return this.http.post<TokenResponse>('email-verify', {token: token});
 	}
 }

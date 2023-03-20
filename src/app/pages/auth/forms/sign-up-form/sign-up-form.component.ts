@@ -46,16 +46,14 @@ export class SignUpFormComponent {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
-					this.toast.success('Вы успешно зарегистрированы!');
+					this.toast.success('english!!! Вы успешно зарегистрированы!');
+					this.toast.success('english!!! Подтвердите свою почту!');
 					this.loading$.next(false);
-					this.router.navigate(['sign-in']);
 				},
 				error: (err) => {
 					switch (err.status) {
 						case 400:
-							if (!!err.error.pasword) this.toast.error(err.error.password);
-							if (!!err.error.email) this.toast.error(err.error.email);
-							if (!!err.error.username) this.toast.error(err.error.username);
+							this.toast.error(err.error.error);
 							break;
 						default:
 							this.toast.error(err);
