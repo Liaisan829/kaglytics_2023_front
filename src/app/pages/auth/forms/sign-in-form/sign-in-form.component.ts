@@ -43,8 +43,8 @@ export class SignInFormComponent {
 		this.authService.signIn(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
-				next: res => {
-					this.authService.authorize(res);
+				next: ({accessToken, refreshToken}) => {
+					this.authService.authorize(accessToken);
 					this.loading$.next(false);
 					this.router.navigate(['/'])
 				},

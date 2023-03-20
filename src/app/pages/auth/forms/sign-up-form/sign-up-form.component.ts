@@ -30,7 +30,7 @@ export class SignUpFormComponent {
 
 	private buildForm() {
 		this.form = this.fb.group({
-			username: ['', [Validators.required]],
+			username: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9]*$/)]],
 			email: ['', [...EmailValidators]],
 			password: ['', [...PasswordValidators]]
 		});
@@ -46,16 +46,13 @@ export class SignUpFormComponent {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
-					this.toast.success('Вы успешно зарегистрированы!');
+					this.toast.success('A verification link has been sent to your email');
 					this.loading$.next(false);
-					this.router.navigate(['sign-in']);
 				},
 				error: (err) => {
 					switch (err.status) {
 						case 400:
-							if (!!err.error.pasword) this.toast.error(err.error.password);
-							if (!!err.error.email) this.toast.error(err.error.email);
-							if (!!err.error.username) this.toast.error(err.error.username);
+							this.toast.error(err.error.email);
 							break;
 						default:
 							this.toast.error(err);

@@ -17,7 +17,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form.component';
 import { AuthInterceptorService } from "@services/auth-interceptor.service";
-import { LoaderComponent } from './components/ui/loader/loader.component';
+import { LoaderComponent } from '@components/ui/loader/loader.component';
+import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component';
 
 @NgModule({
 	declarations: [
@@ -29,7 +30,8 @@ import { LoaderComponent } from './components/ui/loader/loader.component';
 		SignUpFormComponent,
 		SwiperComponent,
 		SignInFormComponent,
-  LoaderComponent
+		LoaderComponent,
+		EmailVerifyComponent
 	],
 	imports: [
 		BrowserModule,
