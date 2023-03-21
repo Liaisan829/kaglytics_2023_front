@@ -41,7 +41,7 @@ export class AuthService {
 		return this.token !== null;
 	}
 
-	emailVerify(token: string): Observable<TokenResponse> {
-		return this.http.post<TokenResponse>('email-verify', {token: token});
+	emailVerify(code: string): Observable<TokenResponse> {
+		return this.http.post<TokenResponse>('email-verify', {code: code});
 	}
 }

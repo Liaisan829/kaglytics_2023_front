@@ -23,8 +23,8 @@ export class EmailVerifyComponent {
 		this.route.queryParams
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(() => {
-				const {token} = this.route.snapshot.queryParams;
-				this.authService.emailVerify(token)
+				const {code} = this.route.snapshot.queryParams;
+				this.authService.emailVerify(code)
 					.pipe(takeUntil(this.destroy$))
 					.subscribe({
 						next: ({access, refresh}) => {
@@ -35,7 +35,15 @@ export class EmailVerifyComponent {
 							}
 						},
 						error: (err) => {
-							this.toast.error(err.error.error)
+							switch (err.status) {
+								case 404:
+									this.toast.error(err.error.error);
+									break;
+								default:
+									this.toast.error(err);
+									break;
+							}
+							this.router.navigate(['/sign-up'])
 						}
 					});
 			});
