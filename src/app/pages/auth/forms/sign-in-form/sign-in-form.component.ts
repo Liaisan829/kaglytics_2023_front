@@ -46,12 +46,12 @@ export class SignInFormComponent {
 				next: ({access, refresh}) => {
 					this.authService.authorize(access, refresh);
 					this.loading$.next(false);
-					this.router.navigate(['/'])
+					this.router.navigate(['/']);
 				},
 				error: (err) => {
 					switch (err.status) {
 						case 401:
-							this.toast.error('Invalid email or password');
+							this.toast.error(err.error.error);
 							break;
 						default :
 							this.toast.error(err);
