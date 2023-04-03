@@ -1,3 +1,50 @@
 <app-page>
-	home (welcome) page
+	<div class='info'>
+		<h1>Тут будет какой-то интересный текст</h1>
+		<h3>Тут тоже будет интересный текст</h3>
+		<button
+			class='info__btn'
+			(click)='navigate(isAuthorized)'
+		>
+			{{isAuthorized ? 'Competitions' : 'Sign up to start'}}
+		</button>
+	</div>
+
+	<h3 class='platform'>Our platform is designed for</h3>
+
+	<div class='cards'>
+
+		<div class='card'>
+			<div class='card__image'>
+				<img src='assets/images/profile.png' alt=''>
+				<span>Competitions</span>
+			</div>
+
+			<div class='card__description'>
+				<span>To explore, search and filter kaggle competitions</span>
+			</div>
+		</div>
+
+		<div class='card'>
+			<div class='card__image'>
+				<img src='assets/images/profile.png' alt=''>
+				<span>Predictions</span>
+			</div>
+
+			<div class='card__description'>
+				<span>To explore, search and filter kaggle competitions</span>
+			</div>
+		</div>
+
+		<div class='card'>
+			<div class='card__image'>
+				<img src='assets/images/profile.png' alt=''>
+				<span>Analitycs</span>
+			</div>
+
+			<div class='card__description'>
+				<span>To explore, search and filter kaggle competitions</span>
+			</div>
+		</div>
+	</div>
 </app-page>

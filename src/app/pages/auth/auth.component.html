@@ -1,20 +1,17 @@
-<app-header></app-header>
-<div class='content__wrapper'>
-	<div class='content'>
-		<div class='logo'>
-			<a routerLink='/'>Kaglytics</a>
-		</div>
-
-		<ng-container [ngSwitch]='pageForm'>
-			<ng-container *ngSwitchCase="'sign-up'">
-				<app-sign-up-form></app-sign-up-form>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="'sign-in'">
-				<app-sign-in-form></app-sign-in-form>
-			</ng-container>
-		</ng-container>
+<div class='content'>
+	<div class='logo'>
+		<a routerLink='/'>Kaglytics</a>
 	</div>
 
-	<app-swiper class='slider'></app-swiper>
+	<ng-container [ngSwitch]='pageForm'>
+		<ng-container *ngSwitchCase="'sign-up'">
+			<app-sign-up-form></app-sign-up-form>
+		</ng-container>
+
+		<ng-container *ngSwitchCase="'sign-in'">
+			<app-sign-in-form></app-sign-in-form>
+		</ng-container>
+	</ng-container>
 </div>
+
+<app-swiper class='slider'></app-swiper>
