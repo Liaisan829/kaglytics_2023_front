@@ -1,0 +1,21 @@
+<header class='header'>
+	<div class="header__navigation">
+		<a routerLink='/' class='logo'>kaglytics</a>
+
+		<nav *ngIf='isAuthorized'>
+			<a routerLink='#'>Competitions</a>
+			<a routerLink='#'>Analitycs</a>
+		</nav>
+	</div>
+
+	<div class='profile' *ngIf='isAuthorized'>
+		<a routerLink='#'>
+			<img src='assets/images/profile.png' alt='profile'>
+		</a>
+	</div>
+
+	<nav class='links' *ngIf='!isAuthorized'>
+		<a routerLink='/sign-in'>Sign in</a>
+		<a routerLink='/sign-up'>Sign up</a>
+	</nav>
+</header>
