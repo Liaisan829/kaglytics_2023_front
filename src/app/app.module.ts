@@ -21,6 +21,7 @@ import { LoaderComponent } from '@components/ui/loader/loader.component';
 import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component';
 import { PageComponent } from '@components/ui/page/page.component';
 import { HeaderComponent } from '@components/ui/header/header.component';
+import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 
 @NgModule({
 	declarations: [
@@ -36,6 +37,7 @@ import { HeaderComponent } from '@components/ui/header/header.component';
 		EmailVerifyComponent,
 		PageComponent,
 		HeaderComponent,
+  HomeCardComponent,
 	],
 	imports: [
 		BrowserModule,

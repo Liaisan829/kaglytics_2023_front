@@ -1,0 +1,45 @@
+@import 'mixins'
+
+.card
+	display: block
+	background: white
+	border-radius: 8px
+	padding: 28px
+	max-width: 300px
+	min-height: 400px
+	height: 400px
+
+	&__orange
+		border: 2px solid $c-orange
+
+	&__green
+		border: 2px solid $c-green
+
+	&__black
+		border: 2px solid $c-base
+
+	&__info
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		height: 100%
+
+	&__img
+		margin-bottom: 20px
+		max-width: 100px
+		width: 100px
+
+	&__title
+		font-size: 26px
+		line-height: 32px
+		display: flex
+		flex-direction: column
+		align-items: center
+
+	&__column
+		display: flex
+		flex-direction: column
+
+	&__text
+		@include text-20-20-semibold
+		text-align: center

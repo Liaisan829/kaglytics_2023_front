@@ -1,9 +1,5 @@
 @import 'colors'
 
-@mixin regular-style
-	font-style: normal
-	font-weight: 400
-
 @mixin text-40-48-bold
 	font-size: 40px
 	line-height: 48px
@@ -29,10 +25,15 @@
 	line-height: 28px
 	font-weight: 600
 
-@mixin text-20-20
-	@include regular-style
+@mixin text-20-20-semibold
 	font-size: 20px
 	line-height: 20px
+	font-weight: 600
+
+@mixin text-20-20
+	font-size: 20px
+	line-height: 20px
+	font-weight: 400
 
 @mixin text-18-20-semibold
 	font-weight: 600
@@ -45,14 +46,14 @@
 	line-height: 20px
 
 @mixin text-16-20
-	@include regular-style
 	font-size: 16px
 	line-height: 20px
+	font-weight: 400
 
 @mixin text-14-20
-	@include regular-style
 	font-size: 14px
 	line-height: 20px
+	font-weight: 400
 
 @mixin error
 	color: red
