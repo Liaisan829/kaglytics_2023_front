@@ -8,14 +8,7 @@ import { EmailVerifyComponent } from "@pages/email-verify/email-verify.component
 const routes: Routes = [
 	{
 		path: '',
-		canActivate: [AuthGuard],
-		children: [
-			{
-				path: '',
-				pathMatch: 'full',
-				component: HomeComponent
-			}
-		]
+		component: HomeComponent
 	},
 	{
 		path: 'sign-up',

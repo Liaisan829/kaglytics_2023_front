@@ -1,16 +1,24 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AuthService } from "@services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.sass'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+	isAuthorized: boolean = false;
 
-  constructor() { }
+	constructor(
+		private authService: AuthService,
+		private router: Router
+	) {
+		this.isAuthorized = this.authService.isAuthorized;
+	}
 
-  ngOnInit(): void {
-  }
-
+	navigate(isAuthorized: boolean) {
+		this.router.navigate([isAuthorized ? '/competitions' : '/sign-up'])
+	}
 }

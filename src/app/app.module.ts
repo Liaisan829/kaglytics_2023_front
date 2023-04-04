@@ -19,6 +19,8 @@ import { SignInFormComponent } from '@pages/auth/forms/sign-in-form/sign-in-form
 import { AuthInterceptorService } from "@services/auth-interceptor.service";
 import { LoaderComponent } from '@components/ui/loader/loader.component';
 import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component';
+import { PageComponent } from '@components/ui/page/page.component';
+import { HeaderComponent } from '@components/ui/header/header.component';
 
 @NgModule({
 	declarations: [
@@ -31,7 +33,9 @@ import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component
 		SwiperComponent,
 		SignInFormComponent,
 		LoaderComponent,
-		EmailVerifyComponent
+		EmailVerifyComponent,
+		PageComponent,
+		HeaderComponent,
 	],
 	imports: [
 		BrowserModule,

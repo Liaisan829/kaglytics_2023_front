@@ -1,0 +1,59 @@
+@import 'mixins'
+
+\:host
+	display: block
+	border-bottom: 1px solid $c-base-40
+
+.header
+	display: flex
+	justify-content: space-between
+	align-items: center
+	max-width: 1320px
+	width: 92vw
+	margin: 16px auto
+
+	&__navigation
+		display: flex
+		align-items: center
+
+		.logo
+			@include text-40-48-semibold
+			color: $c-base
+
+		nav
+			display: flex
+			margin-left: 80px
+			column-gap: 40px
+
+			a
+				@include text-18-20-regular
+				color: $c-base-80
+
+.logo
+	@include text-40-48-semibold
+	background: rgb(32,190,255)
+	background: linear-gradient(to right, #20BEFF 17%, #AC68D3 100%)
+	-webkit-background-clip: text
+	-webkit-text-fill-color: transparent
+
+.profile
+	img
+		max-width: 40px
+		max-height: 40px
+		width: 40px
+		height: 40px
+
+.auth-links
+	display: flex
+	align-items: center
+	column-gap: 40px
+
+	a
+		@include text-18-20-semibold
+		color: $c-base-80
+
+		&:nth-child(2)
+			border: 3px solid $c-base-80
+			border-radius: 20px
+			padding: 10px 30px
+
