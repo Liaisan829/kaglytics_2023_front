@@ -29,13 +29,6 @@
 				@include text-18-20-regular
 				color: $c-base-80
 
-.logo
-	@include text-40-48-semibold
-	background: rgb(32,190,255)
-	background: linear-gradient(to right, #20BEFF 17%, #AC68D3 100%)
-	-webkit-background-clip: text
-	-webkit-text-fill-color: transparent
-
 .profile
 	img
 		max-width: 40px
@@ -50,10 +43,13 @@
 
 	a
 		@include text-18-20-semibold
-		color: $c-base-80
+		color: $c-white
+		border: 2px solid $c-orange
+		background: $c-orange
+		border-radius: 20px
+		padding: 10px 30px
 
 		&:nth-child(2)
-			border: 3px solid $c-base-80
-			border-radius: 20px
-			padding: 10px 30px
-
+			border-color: $c-green
+			color: $c-green
+			background: transparent
