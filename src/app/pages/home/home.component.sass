@@ -1,5 +1,7 @@
 @import 'mixins'
 
+//поменяла страницу домашнюю и миксины
+
 \:host
 	display: block
 
@@ -11,16 +13,17 @@
 	row-gap: 50px
 
 	h1
-		font-size: 48px
-		line-height: 56px
-		font-weight: 700
+		@include text-40-48-bold
 		color: $c-base
+		text-align: center
+		width: 70vw
 
 	h3
-		font-size: 32px
-		line-height: 40px
-		font-weight: 600
+		@include text-28-40-semibold
 		color: $c-base
+		max-width: 800px
+		width: 50vw
+		text-align: center
 
 	&__btn
 		background: $c-background-base
