@@ -22,6 +22,15 @@ import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component
 import { PageComponent } from '@components/ui/page/page.component';
 import { HeaderComponent } from '@components/ui/header/header.component';
 import { HomeCardComponent } from './pages/home/home-card/home-card.component';
+import { CompetitionsComponent } from './pages/competitions/competitions.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatInputModule } from "@angular/material/input";
+import { MatTableModule } from "@angular/material/table";
+import { MatSortModule } from "@angular/material/sort";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
 	declarations: [
@@ -37,7 +46,8 @@ import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 		EmailVerifyComponent,
 		PageComponent,
 		HeaderComponent,
-  HomeCardComponent,
+  		HomeCardComponent,
+		CompetitionsComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -49,7 +59,15 @@ import { HomeCardComponent } from './pages/home/home-card/home-card.component';
 		ToastrModule.forRoot({
 			timeOut: 3000,
 			closeButton: true,
-		})
+		}),
+		MatFormFieldModule,
+		MatSelectModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		MatTableModule,
+		MatSortModule,
+		MatDatepickerModule,
+		MatNativeDateModule
 	],
 	providers: [
 		{

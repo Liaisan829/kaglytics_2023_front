@@ -1,0 +1,95 @@
+<app-page>
+	<div class="header">
+		<h1>Competitions</h1>
+		<button class="header__btn">Reset all</button>
+	</div>
+
+	<form [formGroup]="form" class="form">
+		<mat-form-field appearance="outline">
+			<mat-label>Search</mat-label>
+			<input matInput placeholder="Search" formControlName="title">
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Tags</mat-label>
+			<input type="text" matInput formControlName="tags" [matAutocomplete]="auto">
+			<mat-autocomplete #auto="matAutocomplete">
+				<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+					{{option.name}}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Reward types</mat-label>
+			<mat-select formControlName="reward_type" multiple>
+				<mat-option *ngFor="let reward of rewardTypes$ | async" [value]="reward.id">{{reward.name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Categories</mat-label>
+			<mat-select formControlName="category" multiple>
+				<mat-option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Enter a date range</mat-label>
+			<mat-date-range-input [rangePicker]="picker">
+				<input matStartDate formControlName="deadline_after" placeholder="Start date">
+				<input matEndDate formControlName="deadline_before" placeholder="End date">
+			</mat-date-range-input>
+			<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-date-range-picker #picker></mat-date-range-picker>
+		</mat-form-field>
+	</form>
+
+	<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="table">
+		<ng-container matColumnDef="title">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'title'" sortActionDescription="Sort by title">
+				Title
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.title}}</td>
+		</ng-container>
+		<ng-container matColumnDef="description">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'description'" sortActionDescription="Sort by description">
+				Description
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.title}}</td>
+		</ng-container>
+		<ng-container matColumnDef="tags">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'tags'" sortActionDescription="Sort by tags">Tags
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.tags_dto[0] ? element.tags_dto[0].name : "no tags"}}</td>
+		</ng-container>
+		<ng-container matColumnDef="reward_type">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'reward_type'"
+				sortActionDescription="Sort by reward type">Reward type
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.reward_type_dto.name}}</td>
+		</ng-container>
+		<ng-container matColumnDef="category">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'category'"
+				sortActionDescription="Sort by category">Category
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.category_dto.name}}</td>
+		</ng-container>
+		<ng-container matColumnDef="prediction">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'prediction'"
+				sortActionDescription="Sort by prediction">Prediction
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.prediction}}</td>
+		</ng-container>
+		<ng-container matColumnDef="deadline">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'deadline'"
+				sortActionDescription="Sort by deadline">Deadline
+			</th>
+			<td mat-cell *matCellDef="let element">{{element.deadline | date}}</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+	</table>
+</app-page>
