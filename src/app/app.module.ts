@@ -30,7 +30,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule } from "@angular/material/core";
+import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
 	declarations: [
@@ -80,6 +80,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 			useClass: AuthInterceptorService,
 			multi: true
 		},
+		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
 	],
 	bootstrap: [AppComponent]
 })

@@ -12,18 +12,20 @@
 
 		<mat-form-field appearance="outline">
 			<mat-label>Tags</mat-label>
-			<input type="text" matInput formControlName="tags" [matAutocomplete]="auto">
-			<mat-autocomplete #auto="matAutocomplete">
-				<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-					{{option.name}}
-				</mat-option>
-			</mat-autocomplete>
+			<mat-select multiple formControlName="title" (openedChange)="onOpenChange(multiSearch)">
+				<mat-select-trigger>
+					{{form.get('title').value }}
+				</mat-select-trigger>
+				<input #multiSearch type="text" matInput placeholder="Tags" (input)="onInputChange($event)" class="input">
+
+				<mat-option *ngFor="let option of filteredOptions" [value]="option.name">{{option.name}}</mat-option>
+			</mat-select>
 		</mat-form-field>
 
 		<mat-form-field appearance="outline">
 			<mat-label>Reward types</mat-label>
 			<mat-select formControlName="reward_types" multiple>
-				<mat-option *ngFor="let reward of rewardTypes$ | async" [value]="reward.id">{{reward.name}}</mat-option>
+				<mat-option *ngFor="let reward of rewardTypes$ | async" [value]="reward.name">{{reward.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 
@@ -31,7 +33,7 @@
 			<mat-label>Categories</mat-label>
 			<mat-select formControlName="categories" multiple>
 				<mat-option *ngFor="let category of categories$ | async"
-							[value]="category.id">{{category.name}}</mat-option>
+							[value]="category.name">{{category.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 
@@ -41,7 +43,7 @@
 				<input matStartDate formControlName="deadline_after" placeholder="Start date">
 				<input matEndDate formControlName="deadline_before" placeholder="End date">
 			</mat-date-range-input>
-			<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+			<mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
 			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 			<mat-date-range-picker #picker></mat-date-range-picker>
 		</mat-form-field>

@@ -3,9 +3,8 @@ import { CompetitionsService } from "@services/competitions.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
-import { MatSort, Sort } from "@angular/material/sort";
+import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { LiveAnnouncer } from "@angular/cdk/a11y";
 
 @Component({
 	selector: 'app-competitions',
@@ -27,7 +26,6 @@ export class CompetitionsComponent implements OnInit {
 		private competitionsService: CompetitionsService,
 		private fb: FormBuilder,
 		private destroy$: DestroyService,
-		private _liveAnnouncer: LiveAnnouncer,
 		private cdr: ChangeDetectorRef
 	) {
 		this.buildForm();
@@ -51,7 +49,13 @@ export class CompetitionsComponent implements OnInit {
 				this.dataSource = new MatTableDataSource<any[]>(competitions);
 				this.dataSource.sort = this.sort;
 				this.cdr.markForCheck();
-			})
+			});
+
+		this.tags$
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(tags => {
+				this.filteredOptions = tags;
+			});
 	}
 
 	resetForm() {
@@ -60,6 +64,26 @@ export class CompetitionsComponent implements OnInit {
 
 	getCompetitionTags(element: any) {
 		return element.tags_dto.length > 0 ? element.tags_dto.map(tag => tag.name).join(', ') : 'no tags';
-		// {{element.tags_dto.length > 0 ? element.tags_dto.name.join(', ') : "no tags"}}
+	}
+
+	onInputChange(event: any) {
+		const searchInput = event.target.value.toLowerCase();
+
+		this.tags$.pipe(takeUntil(this.destroy$)).subscribe(tags => {
+			// здесь баг
+			tags.filter(tag => {
+				const result = tag.name.toLowerCase();
+				this.filteredOptions = result.includes(searchInput);
+			});
+		});
+	}
+
+	onOpenChange(searchInput: any) {
+		searchInput.value = "";
+		this.tags$
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(tags => {
+				this.filteredOptions = tags;
+			});
 	}
 }
