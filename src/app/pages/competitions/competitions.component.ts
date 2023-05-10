@@ -20,7 +20,7 @@ export class CompetitionsComponent implements OnInit {
 	categories$ = this.competitionsService.getCategories();
 	rewardTypes$ = this.competitionsService.getRewardTypes();
 	dataSource: any;
-	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'prediction', 'deadline'];
+	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'deadline', 'prediction'];
 	filteredOptions: any;
 
 	constructor(
@@ -36,9 +36,9 @@ export class CompetitionsComponent implements OnInit {
 	private buildForm() {
 		this.form = this.fb.group({
 			title: [''],
-			tags: [''],
-			reward_type: [''],
-			category: [''],
+			tags: [[]],
+			reward_types: [[]],
+			categories: [[]],
 			deadline_before: [''],
 			deadline_after: ['']
 		});
@@ -54,11 +54,12 @@ export class CompetitionsComponent implements OnInit {
 			})
 	}
 
-	announceSortChange(sortState: Sort) {
-		if (sortState.direction) {
-			this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
-		} else {
-			this._liveAnnouncer.announce(`Sorting cleared`);
-		}
+	resetForm() {
+		this.form.reset();
+	}
+
+	getCompetitionTags(element: any) {
+		return element.tags_dto.length > 0 ? element.tags_dto.map(tag => tag.name).join(', ') : 'no tags';
+		// {{element.tags_dto.length > 0 ? element.tags_dto.name.join(', ') : "no tags"}}
 	}
 }
