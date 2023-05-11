@@ -18,6 +18,7 @@ export class CompetitionsComponent implements OnInit {
 	tags$ = this.competitionsService.getTags();
 	categories$ = this.competitionsService.getCategories();
 	rewardTypes$ = this.competitionsService.getRewardTypes();
+	tags: any[];
 	dataSource: any;
 	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'deadline', 'prediction'];
 	filteredOptions: any;
@@ -51,10 +52,16 @@ export class CompetitionsComponent implements OnInit {
 				this.cdr.markForCheck();
 			});
 
+		this.getTags();
+	}
+
+	getTags() {
 		this.tags$
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(tags => {
+				this.tags = tags;
 				this.filteredOptions = tags;
+				this.cdr.markForCheck();
 			});
 	}
 
@@ -69,21 +76,14 @@ export class CompetitionsComponent implements OnInit {
 	onInputChange(event: any) {
 		const searchInput = event.target.value.toLowerCase();
 
-		this.tags$.pipe(takeUntil(this.destroy$)).subscribe(tags => {
-			// здесь баг
-			tags.filter(tag => {
-				const result = tag.name.toLowerCase();
-				this.filteredOptions = result.includes(searchInput);
-			});
+		this.filteredOptions = this.tags.filter(({name}) => {
+			const tags = name.toLowerCase();
+			return tags.includes(searchInput);
 		});
 	}
 
 	onOpenChange(searchInput: any) {
 		searchInput.value = "";
-		this.tags$
-			.pipe(takeUntil(this.destroy$))
-			.subscribe(tags => {
-				this.filteredOptions = tags;
-			});
+		this.filteredOptions = this.tags;
 	}
 }
