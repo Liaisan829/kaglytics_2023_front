@@ -8,7 +8,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeCardComponent {
-	@Input() theme: 'ORANGE' | 'GREEN' | 'BLACK' = 'ORANGE';
+	@Input() theme?: 'ORANGE' | 'GREEN' | 'BLACK' = 'BLACK';
 	@Input() title: string = '';
 	@Input() description: string = '';
 	@Input() icon: string = '';
