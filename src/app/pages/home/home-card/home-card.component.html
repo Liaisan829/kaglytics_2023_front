@@ -1,0 +1,16 @@
+<div
+	class='card'
+	[class.card__green]="theme === 'GREEN'"
+	[class.card__orange]="theme === 'ORANGE'"
+>
+	<div class='card__info'>
+		<div class='card__title'>
+			<app-icon [name]='icon' width='100px' height='100px' class='card__img'></app-icon>
+			{{title}}
+		</div>
+
+		<div class='card__column'>
+			<div class='card__text'>{{description}}</div>
+		</div>
+	</div>
+</div>

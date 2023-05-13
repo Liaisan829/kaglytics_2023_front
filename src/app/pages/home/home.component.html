@@ -14,38 +14,14 @@
 	<h3 class='platform'>Our platform is designed for</h3>
 
 	<div class='cards'>
-
-		<div class='card'>
-			<div class='card__image'>
-				<img src='assets/images/profile.png' alt=''>
-				<span>Competitions</span>
-			</div>
-
-			<div class='card__description'>
-				<span>To explore, search and filter kaggle competitions</span>
-			</div>
-		</div>
-
-		<div class='card'>
-			<div class='card__image'>
-				<img src='assets/images/profile.png' alt=''>
-				<span>Predictions</span>
-			</div>
-
-			<div class='card__description'>
-				<span>To explore, search and filter kaggle competitions</span>
-			</div>
-		</div>
-
-		<div class='card'>
-			<div class='card__image'>
-				<img src='assets/images/profile.png' alt=''>
-				<span>Analitycs</span>
-			</div>
-
-			<div class='card__description'>
-				<span>To explore, search and filter kaggle competitions</span>
-			</div>
-		</div>
+		<app-home-card theme='ORANGE' title='Competitions' icon='competition'
+					   description='Explore, search and filter competitions'
+		></app-home-card>
+		<app-home-card theme='GREEN' title='Predictions' icon='prediction'
+					   description='Get a&nbsp;prediction of&nbsp;your ranking in&nbsp;the competition'
+		></app-home-card>
+		<app-home-card theme='BLACK' title='Analytics' icon='analytics'
+					   description='Follow the analytics of&nbsp;the competitions'
+		></app-home-card>
 	</div>
 </app-page>
