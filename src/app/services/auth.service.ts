@@ -6,6 +6,7 @@ import { SignUpRequest } from "@models/SignUpRequest";
 import { SignUpResponse } from "@models/SignUpResponse";
 import { TokenResponse } from "@models/TokenResponse";
 import jwtDecode from "jwt-decode";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
 	@LocalStorage() user?: any | null;
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private router: Router
 	) {
 	}
 
@@ -31,7 +33,7 @@ export class AuthService {
 
 	authorize(token: string, refreshToken?: string): void {
 		this.token = token;
-		this.refresh_token = refreshToken;
+		this.refresh_token = refreshToken ?? this.refresh_token;
 
 		this.user = jwtDecode(token);
 		this.expires_in = this.user.exp;
@@ -43,5 +45,16 @@ export class AuthService {
 
 	emailVerify(code: string): Observable<TokenResponse> {
 		return this.http.post<TokenResponse>('email-verify', {code: code});
+	}
+
+	refreshTokenRequest(token: string): Observable<any> {
+		return this.http.post('refresh-token', {
+			refresh: token ?? this.refresh_token
+		});
+	}
+
+	logout(): void {
+		sessionStorage.clearStorage();
+		this.router.navigate(['/sign-in']);
 	}
 }
