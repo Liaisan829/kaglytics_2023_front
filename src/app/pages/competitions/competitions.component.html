@@ -1,7 +1,10 @@
 <app-page>
 	<div class="header">
 		<h1>Competitions</h1>
-		<button class="header__btn" (click)="resetForm()">Reset all</button>
+		<div class="header__actions">
+			<button class="header__btn orange" (click)="save()">Filter</button>
+			<button class="header__btn green" (click)="resetForm()">Reset all</button>
+		</div>
 	</div>
 
 	<form [formGroup]="form" class="form">
@@ -12,11 +15,12 @@
 
 		<mat-form-field appearance="outline">
 			<mat-label>Tags</mat-label>
-			<mat-select multiple formControlName="title" (openedChange)="onOpenChange(multiSearch)">
+			<mat-select multiple formControlName="tags" (openedChange)="onOpenChange(multiSearch)">
 				<mat-select-trigger>
-					{{form.get('title').value }}
+					{{form.get('tags').value }}
 				</mat-select-trigger>
-				<input #multiSearch type="text" matInput placeholder="Tags" (input)="onInputChange($event)" class="input">
+				<input #multiSearch type="text" matInput placeholder="Tags" (input)="onInputChange($event)"
+					   class="input">
 
 				<mat-option *ngFor="let option of filteredOptions" [value]="option.name">{{option.name}}</mat-option>
 			</mat-select>
@@ -25,7 +29,8 @@
 		<mat-form-field appearance="outline">
 			<mat-label>Reward types</mat-label>
 			<mat-select formControlName="reward_types" multiple>
-				<mat-option *ngFor="let reward of rewardTypes$ | async" [value]="reward.name">{{reward.name}}</mat-option>
+				<mat-option *ngFor="let reward of rewardTypes$ | async"
+							[value]="reward.name">{{reward.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 
@@ -51,7 +56,8 @@
 
 	<table mat-table [dataSource]="dataSource" matSort class="table">
 		<ng-container matColumnDef="title">
-			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'title'" sortActionDescription="Sort by title" class="title">
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'title'" sortActionDescription="Sort by title"
+				class="title">
 				Title
 			</th>
 			<td mat-cell *matCellDef="let element" class="title">{{element.title}}</td>
@@ -61,7 +67,8 @@
 			<td mat-cell *matCellDef="let element" class="description">{{element.title}}</td>
 		</ng-container>
 		<ng-container matColumnDef="tags">
-			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'tags'" sortActionDescription="Sort by tags" class="tags">Tags
+			<th mat-header-cell *matHeaderCellDef [mat-sort-header]="'tags'" sortActionDescription="Sort by tags"
+				class="tags">Tags
 			</th>
 			<td mat-cell
 				*matCellDef="let element" class="tags">{{getCompetitionTags(element)}}</td>

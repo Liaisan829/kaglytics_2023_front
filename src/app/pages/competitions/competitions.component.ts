@@ -43,7 +43,17 @@ export class CompetitionsComponent implements OnInit {
 		});
 	}
 
+	save() {
+		this.loadFilteredCompetitions();
+	}
+
 	ngOnInit(): void {
+		this.loadAllCompetitions();
+
+		this.getTags();
+	}
+
+	loadAllCompetitions() {
 		this.competitionsService.getActiveCompetitions()
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(competitions => {
@@ -51,8 +61,6 @@ export class CompetitionsComponent implements OnInit {
 				this.dataSource.sort = this.sort;
 				this.cdr.markForCheck();
 			});
-
-		this.getTags();
 	}
 
 	getTags() {
@@ -67,6 +75,7 @@ export class CompetitionsComponent implements OnInit {
 
 	resetForm() {
 		this.form.reset();
+		this.loadAllCompetitions();
 	}
 
 	getCompetitionTags(element: any) {
@@ -85,5 +94,15 @@ export class CompetitionsComponent implements OnInit {
 	onOpenChange(searchInput: any) {
 		searchInput.value = "";
 		this.filteredOptions = this.tags;
+	}
+
+	loadFilteredCompetitions() {
+		this.competitionsService.getFilteredCompetitions(this.form.value)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(response => {
+				this.dataSource = response;
+				console.log(response);
+				this.cdr.markForCheck();
+			});
 	}
 }

@@ -24,4 +24,8 @@ export class CompetitionsService {
 	getRewardTypes(): Observable<any> {
 		return this.http.get<any>('competitions/reward-types');
 	}
+
+	getFilteredCompetitions(data: any): Observable<any> {
+	 return this.http.get<any>('competitions/active/search', {params: data});
+	}
 }
