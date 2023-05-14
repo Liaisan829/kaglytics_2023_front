@@ -1,0 +1,93 @@
+@import "mixins"
+
+\:host
+	::ng-deep
+		.prediction .mat-sort-header-container
+			justify-content: flex-end !important
+
+.mat-row
+	padding: 16px
+
+	&:is(:first-child)
+		color: $c-base-64
+
+	&:not(:first-child)
+		color: $c-base-80
+
+	&:not(:first-of-type)
+		border-top: 1px solid $c-base-40
+
+	&:hover
+		background: rgba(62, 80, 114, 0.08)
+		border-radius: 8px
+		border-top-color: white
+
+		& + .mat-row
+			border-top-color: white
+
+	&.pointer
+		cursor: pointer
+
+
+.header
+	margin: 50px 0
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+	&__btn
+		border: none
+		border-radius: 24px
+		padding: 10px 50px
+		outline: none
+		color: white
+		@include text-16-20
+
+	&__actions
+		display: flex
+		align-items: center
+		column-gap: 10px
+
+.orange
+	background: $c-orange
+
+.green
+	background-color: $c-green
+
+.form
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+.input
+	padding: 10px
+
+.table
+	width: 100%
+
+.title
+	max-width: 250px
+	width: 250px
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+	padding-right: 20px
+
+.description, .tags
+	max-width: 300px
+	width: 300px
+	text-overflow: ellipsis
+	white-space: nowrap
+	overflow: hidden
+	padding-right: 20px
+
+.prediction
+	background-color: $c-orange
+	color: white
+
+.right
+	text-align: right
+	display: block
+
+.not-found
+	margin-top: 40px
