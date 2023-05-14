@@ -33,6 +33,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
 import {OverlayModule} from "@angular/cdk/overlay";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { NotFoundComponent } from './components/ui/not-found/not-found.component';
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 		HeaderComponent,
   		HomeCardComponent,
 		CompetitionsComponent,
+  NotFoundComponent,
 	],
     imports: [
         BrowserModule,

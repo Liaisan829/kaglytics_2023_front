@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CompetitionsService } from "@services/competitions.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { ConnectedPosition } from "@angular/cdk/overlay";
 
 @Component({
 	selector: 'app-competitions',
@@ -23,17 +22,7 @@ export class CompetitionsComponent implements OnInit {
 	dataSource: any;
 	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'deadline', 'prediction'];
 	filteredOptions: any;
-
-	isTagsOpened = false;
-	@ViewChild('origin') origin!: ElementRef;
-	originRect!: ClientRect;
-
-	overlayPositions: ConnectedPosition[] = [{
-		originX: 'start',
-		originY: 'bottom',
-		overlayX: 'start',
-		overlayY: 'top',
-	}]
+	initialValues = {};
 
 	constructor(
 		private competitionsService: CompetitionsService,
@@ -53,6 +42,8 @@ export class CompetitionsComponent implements OnInit {
 			deadline_before: [''],
 			deadline_after: ['']
 		});
+
+		this.initialValues = this.form.value;
 	}
 
 	save() {
@@ -86,7 +77,7 @@ export class CompetitionsComponent implements OnInit {
 	}
 
 	resetForm() {
-		this.form.reset();
+		this.form.reset(this.initialValues);
 		this.loadAllCompetitions();
 	}
 
@@ -109,20 +100,29 @@ export class CompetitionsComponent implements OnInit {
 	}
 
 	loadFilteredCompetitions() {
-		this.competitionsService.getFilteredCompetitions(this.form.value)
+		let formatted_deadline_before = '';
+		if (this.form.get('deadline_before').value) {
+			const deadline_before = new Date(this.form.get('deadline_before').value);
+			deadline_before.setDate(deadline_before.getDate() + 1);
+			formatted_deadline_before = deadline_before.toISOString().slice(0, 10);
+		}
+
+		let formatted_deadline_after = '';
+		if (this.form.get('deadline_after').value) {
+			const deadline_after = new Date(this.form.get('deadline_after').value);
+			deadline_after.setDate(deadline_after.getDate() + 1);
+			formatted_deadline_after = deadline_after.toISOString().slice(0, 10);
+		}
+
+		this.competitionsService.getFilteredCompetitions({
+			...this.form.value,
+			deadline_before: formatted_deadline_before,
+			deadline_after: formatted_deadline_after,
+		})
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(response => {
 				this.dataSource = response;
 				this.cdr.markForCheck();
 			});
-	}
-
-	hover() {
-		this.originRect = this.origin.nativeElement?.getBoundingClientRect();
-		this.isTagsOpened = true;
-	}
-
-	close() {
-		this.isTagsOpened = false;
 	}
 }
