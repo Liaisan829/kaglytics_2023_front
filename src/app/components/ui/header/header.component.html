@@ -8,13 +8,12 @@
 		</nav>
 	</div>
 
-	<div class='profile' *ngIf='isAuthorized'>
-		<a routerLink='#'>
-			<img src='assets/images/profile.png' alt='profile'>
-		</a>
+	<div class='actions' *ngIf='isAuthorized'>
+		<button (click)="logout()" class="actions__btn">Log out</button>
+		<a routerLink='#'>Profile</a>
 	</div>
 
-	<nav class='auth-links' *ngIf='!isAuthorized'>
+	<nav class='actions' *ngIf='!isAuthorized'>
 		<a routerLink='/sign-in'>Sign in</a>
 		<a routerLink='/sign-up'>Sign up</a>
 	</nav>

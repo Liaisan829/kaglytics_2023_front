@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { LocalStorage } from "@utils/local-storage";
+import { LocalStorage, storageService } from "@utils/local-storage";
 import { SignUpRequest } from "@models/SignUpRequest";
 import { SignUpResponse } from "@models/SignUpResponse";
 import { TokenResponse } from "@models/TokenResponse";
@@ -54,7 +54,7 @@ export class AuthService {
 	}
 
 	logout(): void {
-		sessionStorage.clearStorage();
+		storageService.clearStorage();
 		this.router.navigate(['/sign-in']);
 	}
 }
