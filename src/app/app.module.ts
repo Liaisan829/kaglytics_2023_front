@@ -31,6 +31,8 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
+import {OverlayModule} from "@angular/cdk/overlay";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
 	declarations: [
@@ -49,26 +51,28 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
   		HomeCardComponent,
 		CompetitionsComponent,
 	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		ReactiveFormsModule,
-		SwiperModule,
-		HttpClientModule,
-		BrowserAnimationsModule,
-		ToastrModule.forRoot({
-			timeOut: 3000,
-			closeButton: true,
-		}),
-		MatFormFieldModule,
-		MatSelectModule,
-		MatAutocompleteModule,
-		MatInputModule,
-		MatTableModule,
-		MatSortModule,
-		MatDatepickerModule,
-		MatNativeDateModule
-	],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        SwiperModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            closeButton: true,
+        }),
+        MatFormFieldModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatTableModule,
+        MatSortModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        OverlayModule,
+        MatTooltipModule
+    ],
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,

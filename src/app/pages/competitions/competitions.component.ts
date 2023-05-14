@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CompetitionsService } from "@services/competitions.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { ConnectedPosition } from "@angular/cdk/overlay";
 
 @Component({
 	selector: 'app-competitions',
@@ -22,6 +23,17 @@ export class CompetitionsComponent implements OnInit {
 	dataSource: any;
 	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'deadline', 'prediction'];
 	filteredOptions: any;
+
+	isTagsOpened = false;
+	@ViewChild('origin') origin!: ElementRef;
+	originRect!: ClientRect;
+
+	overlayPositions: ConnectedPosition[] = [{
+		originX: 'start',
+		originY: 'bottom',
+		overlayX: 'start',
+		overlayY: 'top',
+	}]
 
 	constructor(
 		private competitionsService: CompetitionsService,
@@ -101,8 +113,16 @@ export class CompetitionsComponent implements OnInit {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(response => {
 				this.dataSource = response;
-				console.log(response);
 				this.cdr.markForCheck();
 			});
+	}
+
+	hover() {
+		this.originRect = this.origin.nativeElement?.getBoundingClientRect();
+		this.isTagsOpened = true;
+	}
+
+	close() {
+		this.isTagsOpened = false;
 	}
 }
