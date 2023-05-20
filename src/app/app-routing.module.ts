@@ -5,6 +5,7 @@ import { AuthComponent } from '@pages/auth/auth.component';
 import { HomeComponent } from "@pages/home/home.component";
 import { EmailVerifyComponent } from "@pages/email-verify/email-verify.component";
 import { CompetitionsComponent } from "@pages/competitions/competitions.component";
+import { AnalyticsComponent } from "@pages/analytics/analytics.component";
 
 const routes: Routes = [
 	{
@@ -29,6 +30,11 @@ const routes: Routes = [
 		path: 'competitions',
 		canActivate: [AuthGuard],
 		component: CompetitionsComponent
+	},
+	{
+		path: 'analytics',
+		canActivate: [AuthGuard],
+		component: AnalyticsComponent
 	}
 ];
 

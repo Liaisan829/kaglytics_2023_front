@@ -21,8 +21,8 @@ import { LoaderComponent } from '@components/ui/loader/loader.component';
 import { EmailVerifyComponent } from '@pages/email-verify/email-verify.component';
 import { PageComponent } from '@components/ui/page/page.component';
 import { HeaderComponent } from '@components/ui/header/header.component';
-import { HomeCardComponent } from './pages/home/home-card/home-card.component';
-import { CompetitionsComponent } from './pages/competitions/competitions.component';
+import { HomeCardComponent } from '@pages/home/home-card/home-card.component';
+import { CompetitionsComponent } from '@pages/competitions/competitions.component';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
@@ -31,9 +31,11 @@ import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from "@angular/material/sort";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MAT_DATE_LOCALE, MatNativeDateModule } from "@angular/material/core";
-import {OverlayModule} from "@angular/cdk/overlay";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import { NotFoundComponent } from './components/ui/not-found/not-found.component';
+import { OverlayModule } from "@angular/cdk/overlay";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { NotFoundComponent } from '@components/ui/not-found/not-found.component';
+import { NgxEchartsModule } from "ngx-echarts";
+import { AnalyticsComponent } from '@pages/analytics/analytics.component';
 
 @NgModule({
 	declarations: [
@@ -49,32 +51,36 @@ import { NotFoundComponent } from './components/ui/not-found/not-found.component
 		EmailVerifyComponent,
 		PageComponent,
 		HeaderComponent,
-  		HomeCardComponent,
+		HomeCardComponent,
 		CompetitionsComponent,
-  NotFoundComponent,
+		NotFoundComponent,
+		AnalyticsComponent,
 	],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        SwiperModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            closeButton: true,
-        }),
-        MatFormFieldModule,
-        MatSelectModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatTableModule,
-        MatSortModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        OverlayModule,
-        MatTooltipModule
-    ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		ReactiveFormsModule,
+		SwiperModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		ToastrModule.forRoot({
+			timeOut: 3000,
+			closeButton: true,
+		}),
+		MatFormFieldModule,
+		MatSelectModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		MatTableModule,
+		MatSortModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		OverlayModule,
+		MatTooltipModule,
+		NgxEchartsModule.forRoot({
+			echarts: () => import('echarts')
+		})
+	],
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,
@@ -86,7 +92,7 @@ import { NotFoundComponent } from './components/ui/not-found/not-found.component
 			useClass: AuthInterceptorService,
 			multi: true
 		},
-		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+		{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
 	],
 	bootstrap: [AppComponent]
 })
