@@ -1,22 +1,28 @@
 <form [formGroup]='form'>
 
 	<app-input placeholder='Email' formControlName='email' type='email'></app-input>
+
 	<ng-container *ngIf="hasError('email', 'required')">
-		<span class="error">This field is required</span>
+		<span class='error'>Email is required</span>
 	</ng-container>
-	<ng-container *ngIf="hasError('email', 'email')">
-		<span class="error">Invalid mail format</span>
+	<ng-container
+		*ngIf="hasError('email', 'email') || hasError('email', 'pattern')">
+		<span class='error'>Invalid email pattern</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('email', 'maxlength')">
+		<span class='error'>Ensure this field has no more than 254 characters</span>
 	</ng-container>
 
 	<app-input placeholder='Password' [password]='true' formControlName='password'></app-input>
+
 	<ng-container *ngIf="hasError('password', 'required')">
-		<span class="error">This field is required</span>
+		<span class='error'>Password is required</span>
 	</ng-container>
-	<ng-container *ngIf="hasError('password', 'minLength')">
-		<span class="error">Minimum length 5 characters</span>
+	<ng-container *ngIf="hasError('password', 'minlength')">
+		<span class='error'>Ensure this field has at least 5 characters</span>
 	</ng-container>
 	<ng-container *ngIf="hasError('password', 'pattern')">
-		<span class="error">Capital letter and number required</span>
+		<span class='error'>The password should only contain alphanumeric characters</span>
 	</ng-container>
 
 	<div class='btn__group'>
