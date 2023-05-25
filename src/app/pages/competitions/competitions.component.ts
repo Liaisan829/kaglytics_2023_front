@@ -60,7 +60,7 @@ export class CompetitionsComponent implements OnInit {
 		setTimeout(() => {
 			this.loading = false;
 			this.cdr.markForCheck();
-		}, 3600);
+		}, 9000);
 	}
 
 	loadAllCompetitions() {

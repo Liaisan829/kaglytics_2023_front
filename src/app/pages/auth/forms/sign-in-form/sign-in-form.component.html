@@ -1,6 +1,23 @@
 <form [formGroup]='form'>
+
 	<app-input placeholder='Email' formControlName='email' type='email'></app-input>
+	<ng-container *ngIf="hasError('email', 'required')">
+		<span class="error">This field is required</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('email', 'email')">
+		<span class="error">Invalid mail format</span>
+	</ng-container>
+
 	<app-input placeholder='Password' [password]='true' formControlName='password'></app-input>
+	<ng-container *ngIf="hasError('password', 'required')">
+		<span class="error">This field is required</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('password', 'minLength')">
+		<span class="error">Minimum length 5 characters</span>
+	</ng-container>
+	<ng-container *ngIf="hasError('password', 'pattern')">
+		<span class="error">Capital letter and number required</span>
+	</ng-container>
 
 	<div class='btn__group'>
 		<button

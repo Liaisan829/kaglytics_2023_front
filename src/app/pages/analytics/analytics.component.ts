@@ -65,10 +65,10 @@ export class AnalyticsComponent implements OnInit {
 				this.tagsChart();
 			});
 
-		setTimeout(() => {
-			this.loading = false;
-			this.cdr.markForCheck();
-		}, 2300);
+		// setTimeout(() => {
+		// 	this.loading = false;
+		// 	this.cdr.markForCheck();
+		// }, 6000);
 	}
 
 	categoriesChart() {
@@ -86,13 +86,10 @@ export class AnalyticsComponent implements OnInit {
 					fontWeight: 'normal'
 				}
 			},
-			// Declare a y-axis (value axis).
 			yAxis: {
 				type: 'value',
 				// max: 500,
 			},
-			// Declare several 'bar' series,
-			// every series will auto-map to each column by default.
 			series: [
 				{type: 'bar', data: [this.categories[0].value, , , , , ,]},
 				{type: 'bar', data: [, this.categories[1].value, , , , ,]},
@@ -120,13 +117,10 @@ export class AnalyticsComponent implements OnInit {
 					fontWeight: 'normal'
 				}
 			},
-			// Declare a y-axis (value axis).
 			yAxis: {
 				type: 'value',
 				// max: 500,
 			},
-			// Declare several 'bar' series,
-			// every series will auto-map to each column by default.
 			series: [
 				{type: 'bar', data: [this.organizations[0].value, , , , , , , , ,]},
 				{type: 'bar', data: [, this.organizations[1].value, , , , , , , ,]},
@@ -157,13 +151,10 @@ export class AnalyticsComponent implements OnInit {
 					fontWeight: 'normal'
 				}
 			},
-			// Declare a y-axis (value axis).
 			yAxis: {
 				type: 'value',
 				// max: 500,
 			},
-			// Declare several 'bar' series,
-			// every series will auto-map to each column by default.
 			series: [
 				{type: 'bar', data: [this.tags[0].value, , , , , , , , ,]},
 				{type: 'bar', data: [, this.tags[1].value, , , , , , , ,]},

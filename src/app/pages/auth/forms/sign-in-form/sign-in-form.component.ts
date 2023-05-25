@@ -6,6 +6,7 @@ import { DestroyService } from "@services/destroy.service";
 import { Router } from "@angular/router";
 import { ToastService } from "@services/toast.service";
 import { LoadingService } from "@services/loading.service";
+import { EmailValidators } from "@utils/validations";
 
 @Component({
 	selector: 'app-sign-in-form',
@@ -29,13 +30,17 @@ export class SignInFormComponent {
 
 	private buildForm() {
 		this.form = this.fb.group({
-			email: ['', [Validators.required]],
-			password: ['', [Validators.required]]
+			email: ['', [...EmailValidators]],
+			password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^[A-Za-z0-9]*$/)]]
 		});
 	}
 
 	get formIsValid(): boolean {
 		return this.form.invalid;
+	}
+
+	control(name: string) {
+		return this.form.get(name);
 	}
 
 	submit() {
@@ -60,5 +65,9 @@ export class SignInFormComponent {
 					this.loading$.next(false);
 				}
 			});
+	}
+
+	hasError(formControlName: string, errorName: string) {
+		return this.control(formControlName)?.touched && this.control(formControlName)?.dirty && this.control(formControlName)?.hasError(errorName)
 	}
 }
