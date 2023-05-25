@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EChartsOption } from "echarts";
 import { AnalyticsService } from "@services/analytics.service";
 import { takeUntil } from "rxjs";
@@ -23,7 +23,8 @@ export class AnalyticsComponent implements OnInit {
 
 	constructor(
 		private analyticsService: AnalyticsService,
-		private destroy$: DestroyService
+		private destroy$: DestroyService,
+		private cdr: ChangeDetectorRef
 	) {
 		this.categoriesOptions = {};
 		this.organizationOptions = {};
@@ -36,6 +37,7 @@ export class AnalyticsComponent implements OnInit {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(res => {
 				this.categories = Object.entries(res).map(([key, value]) => ({key, value}));
+				this.cdr.markForCheck();
 				this.categoriesChart();
 			});
 
@@ -43,6 +45,7 @@ export class AnalyticsComponent implements OnInit {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(res => {
 				this.organizations = Object.entries(res).map(([key, value]) => ({key, value}));
+				this.cdr.markForCheck();
 				this.organizationsChart();
 			});
 
@@ -56,7 +59,7 @@ export class AnalyticsComponent implements OnInit {
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(res => {
 				this.tags = Object.entries(res).map(([key, value]) => ({key, value}));
-				;
+				this.cdr.markForCheck();
 				this.tagsChart();
 			});
 	}
@@ -94,6 +97,7 @@ export class AnalyticsComponent implements OnInit {
 			],
 		}
 	};
+
 	organizationsChart() {
 		this.organizationOptions = {
 			legend: {
