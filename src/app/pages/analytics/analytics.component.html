@@ -1,12 +1,18 @@
 <app-page>
-	<h3>Categories</h3>
-	<div echarts [options]="categoriesOptions" *ngIf="categoriesOptions" style="height:400px;"></div>
+	<ng-container *ngIf="!loading; else other">
+		<h3>Categories</h3>
+		<div echarts [options]="categoriesOptions" *ngIf="categoriesOptions" style="height:400px;"></div>
 
-	<h3>Organizations</h3>
-	<div echarts [options]="organizationOptions" *ngIf="organizationOptions" style="height:400px;"></div>
+		<h3>Organizations</h3>
+		<div echarts [options]="organizationOptions" *ngIf="organizationOptions" style="height:400px;"></div>
 
-	<!--  <div echarts [options]="rewardTypesOptions" *ngIf="rewardTypesOptions" style="height:400px;"></div>-->
+		<!--  <div echarts [options]="rewardTypesOptions" *ngIf="rewardTypesOptions" style="height:400px;"></div>-->
 
-	<h3>Tags</h3>
-	<div echarts [options]="tagsOptions" *ngIf="tagsOptions" style="height:400px;"></div>
+		<h3>Tags</h3>
+		<div echarts [options]="tagsOptions" *ngIf="tagsOptions" style="height:400px;"></div>
+	</ng-container>
 </app-page>
+
+<ng-template #other>
+	<app-skeleton></app-skeleton>
+</ng-template>

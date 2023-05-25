@@ -36,6 +36,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { NotFoundComponent } from '@components/ui/not-found/not-found.component';
 import { NgxEchartsModule } from "ngx-echarts";
 import { AnalyticsComponent } from '@pages/analytics/analytics.component';
+import { SkeletonComponent } from './components/ui/skeleton/skeleton.component';
+import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 @NgModule({
 	declarations: [
@@ -55,32 +57,34 @@ import { AnalyticsComponent } from '@pages/analytics/analytics.component';
 		CompetitionsComponent,
 		NotFoundComponent,
 		AnalyticsComponent,
+  SkeletonComponent,
 	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		ReactiveFormsModule,
-		SwiperModule,
-		HttpClientModule,
-		BrowserAnimationsModule,
-		ToastrModule.forRoot({
-			timeOut: 3000,
-			closeButton: true,
-		}),
-		MatFormFieldModule,
-		MatSelectModule,
-		MatAutocompleteModule,
-		MatInputModule,
-		MatTableModule,
-		MatSortModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		OverlayModule,
-		MatTooltipModule,
-		NgxEchartsModule.forRoot({
-			echarts: () => import('echarts')
-		})
-	],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        SwiperModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            closeButton: true,
+        }),
+        MatFormFieldModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatTableModule,
+        MatSortModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        OverlayModule,
+        MatTooltipModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        }),
+        NgxSkeletonLoaderModule
+    ],
 	providers: [
 		{
 			provide: HTTP_INTERCEPTORS,

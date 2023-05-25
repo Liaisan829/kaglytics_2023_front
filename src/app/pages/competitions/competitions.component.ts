@@ -24,6 +24,8 @@ export class CompetitionsComponent implements OnInit {
 	filteredOptions: any;
 	initialValues = {};
 
+	loading: boolean = true;
+
 	constructor(
 		private competitionsService: CompetitionsService,
 		private fb: FormBuilder,
@@ -54,6 +56,11 @@ export class CompetitionsComponent implements OnInit {
 		this.loadAllCompetitions();
 
 		this.getTags();
+
+		setTimeout(() => {
+			this.loading = false;
+			this.cdr.markForCheck();
+		}, 3600);
 	}
 
 	loadAllCompetitions() {

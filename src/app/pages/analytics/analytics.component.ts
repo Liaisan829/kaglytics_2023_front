@@ -21,10 +21,12 @@ export class AnalyticsComponent implements OnInit {
 	rewardTypesOptions: EChartsOption;
 	tagsOptions: EChartsOption;
 
+	loading: boolean = true;
+
 	constructor(
 		private analyticsService: AnalyticsService,
 		private destroy$: DestroyService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
 	) {
 		this.categoriesOptions = {};
 		this.organizationOptions = {};
@@ -62,6 +64,11 @@ export class AnalyticsComponent implements OnInit {
 				this.cdr.markForCheck();
 				this.tagsChart();
 			});
+
+		setTimeout(() => {
+			this.loading = false;
+			this.cdr.markForCheck();
+		}, 2300);
 	}
 
 	categoriesChart() {
