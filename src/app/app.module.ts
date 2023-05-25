@@ -38,6 +38,8 @@ import { NgxEchartsModule } from "ngx-echarts";
 import { AnalyticsComponent } from '@pages/analytics/analytics.component';
 import { SkeletonComponent } from './components/ui/skeleton/skeleton.component';
 import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { SpinnerColorDirective } from '@directives/spinner-color.directive';
 
 @NgModule({
 	declarations: [
@@ -58,6 +60,7 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 		NotFoundComponent,
 		AnalyticsComponent,
   SkeletonComponent,
+  SpinnerColorDirective,
 	],
     imports: [
         BrowserModule,
@@ -83,7 +86,8 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts')
         }),
-        NgxSkeletonLoaderModule
+        NgxSkeletonLoaderModule,
+        MatProgressSpinnerModule
     ],
 	providers: [
 		{

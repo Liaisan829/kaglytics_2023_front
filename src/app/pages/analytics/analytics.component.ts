@@ -21,7 +21,7 @@ export class AnalyticsComponent implements OnInit {
 	rewardTypesOptions: EChartsOption;
 	tagsOptions: EChartsOption;
 
-	loading: boolean = true;
+	loading: boolean = false;
 
 	constructor(
 		private analyticsService: AnalyticsService,

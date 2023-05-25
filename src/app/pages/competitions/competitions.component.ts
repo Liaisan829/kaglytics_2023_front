@@ -5,6 +5,7 @@ import { takeUntil } from "rxjs";
 import { DestroyService } from "@services/destroy.service";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { ToastService } from "@services/toast.service";
 
 @Component({
 	selector: 'app-competitions',
@@ -30,7 +31,8 @@ export class CompetitionsComponent implements OnInit {
 		private competitionsService: CompetitionsService,
 		private fb: FormBuilder,
 		private destroy$: DestroyService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private toast: ToastService
 	) {
 		this.buildForm();
 	}
@@ -56,20 +58,25 @@ export class CompetitionsComponent implements OnInit {
 		this.loadAllCompetitions();
 
 		this.getTags();
-
-		setTimeout(() => {
-			this.loading = false;
-			this.cdr.markForCheck();
-		}, 9000);
 	}
 
 	loadAllCompetitions() {
 		this.competitionsService.getActiveCompetitions()
 			.pipe(takeUntil(this.destroy$))
-			.subscribe(competitions => {
-				this.dataSource = new MatTableDataSource<any[]>(competitions);
-				this.dataSource.sort = this.sort;
-				this.cdr.markForCheck();
+			.subscribe({
+				next: (competitions) => {
+					this.dataSource = new MatTableDataSource<any[]>(competitions);
+					this.dataSource.sort = this.sort;
+					this.cdr.markForCheck();
+				},
+				error: () => {
+					this.loading = false;
+					this.cdr.markForCheck();
+					this.toast.error('An error has occurred');
+				}, complete: () => {
+					this.loading = false;
+					this.cdr.markForCheck();
+				}
 			});
 	}
 
@@ -107,6 +114,7 @@ export class CompetitionsComponent implements OnInit {
 	}
 
 	loadFilteredCompetitions() {
+		this.loading = true;
 		let formatted_deadline_before = '';
 		if (this.form.get('deadline_before').value) {
 			const deadline_before = new Date(this.form.get('deadline_before').value);
@@ -127,9 +135,17 @@ export class CompetitionsComponent implements OnInit {
 			deadline_after: formatted_deadline_after,
 		})
 			.pipe(takeUntil(this.destroy$))
-			.subscribe(response => {
-				this.dataSource = response;
-				this.cdr.markForCheck();
+			.subscribe({
+				next: (response) => {
+					this.dataSource = response;
+					this.cdr.markForCheck();
+				},
+				error: () => {
+					this.loading = false;
+					this.toast.error('An error has occurred');
+				}, complete: () => {
+					this.loading = false;
+				}
 			});
 	}
 }
