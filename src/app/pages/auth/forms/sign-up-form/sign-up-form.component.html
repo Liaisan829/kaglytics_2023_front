@@ -51,5 +51,6 @@
 </form>
 
 <ng-template #loader>
-	<app-loader width='FULL'></app-loader>
-</ng-template>
+	<mat-progress-spinner style="text-align: center" appSpinnerColor [colorCustom]="'#0D5C63'" [diameter]="25" [mode]="'indeterminate'"
+						  [value]="50">
+	</mat-progress-spinner></ng-template>

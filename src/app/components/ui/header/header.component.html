@@ -9,8 +9,7 @@
 	</div>
 
 	<div class='actions' *ngIf='isAuthorized'>
-		<button (click)="logout()" class="actions__btn">Log out</button>
-		<a routerLink='#'>Profile</a>
+		<button (click)="logout()">Log out</button>
 	</div>
 
 	<nav class='actions' *ngIf='!isAuthorized'>

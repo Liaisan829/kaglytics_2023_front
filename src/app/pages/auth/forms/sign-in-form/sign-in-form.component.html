@@ -31,7 +31,8 @@
 			(click)='submit()'
 			[disabled]='formIsValid'
 			*ngIf='!(loading$ | async)'
-		>Sign in</button>
+		>Sign in
+		</button>
 
 		<ng-container *ngIf='loading$ | async'>
 			<ng-container *ngTemplateOutlet='loader'></ng-container>
@@ -43,6 +44,10 @@
 	</div>
 </form>
 
-<ng-template #loader>
-	<app-loader width='FULL'></app-loader>
-</ng-template>
+<div style="display: flex; justify-content: center; align-items: center; width: 100%">
+	<ng-template #loader>
+		<mat-progress-spinner style="display: flex; justify-content: center; align-items: center;" appSpinnerColor [colorCustom]="'#0D5C63'" [diameter]="25" [mode]="'indeterminate'"
+							  [value]="50">
+		</mat-progress-spinner>
+	</ng-template>
+</div>
