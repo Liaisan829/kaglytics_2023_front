@@ -38,9 +38,9 @@
 			class='btn'
 			(click)='submit()'
 			[disabled]='formIsValid'
-			*ngIf='!(loading$ | async)'
+			*ngIf='!loading'
 		>Sign up</button>
-		<ng-container *ngIf='loading$ | async'>
+		<ng-container *ngIf='loading'>
 			<ng-container *ngTemplateOutlet='loader'></ng-container>
 		</ng-container>
 	</div>

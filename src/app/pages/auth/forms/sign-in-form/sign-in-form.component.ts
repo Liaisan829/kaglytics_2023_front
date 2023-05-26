@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "@services/auth.service";
 import { takeUntil } from "rxjs";
@@ -16,6 +16,7 @@ import { EmailValidators, PasswordValidators } from "@utils/validations";
 })
 export class SignInFormComponent {
 	form!: FormGroup;
+	loading = false;
 
 	constructor(
 		private fb: FormBuilder,
@@ -23,7 +24,7 @@ export class SignInFormComponent {
 		private destroy$: DestroyService,
 		private router: Router,
 		private toast: ToastService,
-		public loading$: LoadingService
+		private cdr: ChangeDetectorRef
 	) {
 		this.buildForm();
 	}
@@ -44,25 +45,20 @@ export class SignInFormComponent {
 	}
 
 	submit() {
-		this.loading$.next(true);
+		this.loading = true;
 		this.authService.signIn(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: ({access, refresh}) => {
 					this.authService.authorize(access, refresh);
-					this.loading$.next(false);
+					this.loading = false;
 					this.router.navigate(['/']);
 				},
 				error: (err) => {
-					switch (err.status) {
-						case 401:
-							this.toast.error(err.error.error);
-							break;
-						default :
-							this.toast.error(err);
-							break;
-					}
-					this.loading$.next(false);
+					console.log(err);
+					this.toast.error('Invalid email or password');
+					this.loading = false;
+					this.cdr.markForCheck();
 				}
 			});
 	}

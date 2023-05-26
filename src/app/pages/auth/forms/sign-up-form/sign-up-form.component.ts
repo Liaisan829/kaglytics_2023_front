@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DestroyService } from "@services/destroy.service";
 import { AuthService } from "@services/auth.service";
 import { takeUntil } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { EmailValidators, PasswordValidators } from "@utils/validations";
-import { LoadingService } from "@services/loading.service";
 
 @Component({
 	selector: 'app-sign-up-form',
@@ -15,13 +14,14 @@ import { LoadingService } from "@services/loading.service";
 })
 export class SignUpFormComponent {
 	form!: FormGroup;
+	loading = false;
 
 	constructor(
 		private fb: FormBuilder,
 		private destroy$: DestroyService,
 		private authService: AuthService,
 		private toast: ToastrService,
-		public loading$: LoadingService
+		private cdr: ChangeDetectorRef
 	) {
 		this.buildForm();
 	}
@@ -39,13 +39,14 @@ export class SignUpFormComponent {
 	}
 
 	submit() {
-		this.loading$.next(true);
+		this.loading = true;
 		this.authService.signUp(this.form.value)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
 					this.toast.success('A verification link has been sent to your email');
-					this.loading$.next(false);
+					this.loading = false;
+					this.cdr.markForCheck();
 				},
 				error: (err) => {
 					switch (err.status) {
@@ -56,7 +57,8 @@ export class SignUpFormComponent {
 							this.toast.error(err);
 							break;
 					}
-					this.loading$.next(false);
+					this.loading = false;
+					this.cdr.markForCheck();
 				}
 			});
 	}
