@@ -12,10 +12,10 @@ import { ToastService } from "@services/toast.service";
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnalyticsComponent implements OnInit {
-	categories = {};
-	organizations = {};
-	rewardTypes = {};
-	tags = {};
+	categories = [];
+	organizations = [];
+	rewardTypes = [];
+	tags = [];
 
 	categoriesOptions: EChartsOption;
 	organizationOptions: EChartsOption;
@@ -79,6 +79,10 @@ export class AnalyticsComponent implements OnInit {
 			.subscribe({
 				next: (res) => {
 					this.rewardTypes = Object.entries(res).map(([key, value]) => ({key, value}));
+					const nanReward = this.rewardTypes.find(reward => reward.key === 'nan');
+					const index = this.rewardTypes.indexOf(nanReward);
+					this.rewardTypes.splice(index, 1);
+					this.rewardTypes.push({key: 'No reward', value: nanReward.value})
 					this.cdr.markForCheck();
 					this.rewardTypesChart();
 				},
