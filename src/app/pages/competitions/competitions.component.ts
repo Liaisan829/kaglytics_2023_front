@@ -16,10 +16,9 @@ import { ToastService } from "@services/toast.service";
 export class CompetitionsComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 	form: FormGroup;
-	tags$ = this.competitionsService.getTags();
 	categories$ = this.competitionsService.getCategories();
-	rewardTypes$ = this.competitionsService.getRewardTypes();
 	tags: any[];
+	rewardTypes: any[];
 	dataSource: any;
 	displayedColumns = ['title', 'description', 'tags', 'reward_type', 'category', 'deadline', 'prediction'];
 	filteredOptions: any;
@@ -58,6 +57,8 @@ export class CompetitionsComponent implements OnInit {
 		this.loadAllCompetitions();
 
 		this.getTags();
+
+		this.getRewardTypes();
 	}
 
 	loadAllCompetitions() {
@@ -81,11 +82,24 @@ export class CompetitionsComponent implements OnInit {
 	}
 
 	getTags() {
-		this.tags$
+		this.competitionsService.getTags()
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(tags => {
 				this.tags = tags;
 				this.filteredOptions = tags;
+				this.cdr.markForCheck();
+			});
+	}
+
+	getRewardTypes() {
+		this.competitionsService.getRewardTypes()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(rewards => {
+				this.rewardTypes = rewards;
+				const nanReward = this.rewardTypes.find(reward => reward.name === 'nan');
+				const index = this.rewardTypes.indexOf(nanReward);
+				this.rewardTypes.splice(index, 1);
+				this.rewardTypes.push({name: 'No reward', id: nanReward.id})
 				this.cdr.markForCheck();
 			});
 	}

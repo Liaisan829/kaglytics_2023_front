@@ -29,7 +29,7 @@
 		<mat-form-field appearance="outline">
 			<mat-label>Reward types</mat-label>
 			<mat-select formControlName="reward_types" multiple>
-				<mat-option *ngFor="let reward of rewardTypes$ | async"
+				<mat-option *ngFor="let reward of rewardTypes"
 							[value]="reward.name">{{reward.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
